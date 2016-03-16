@@ -122,7 +122,7 @@ if IS_ON_SERVER:
 
     #Sentry / RAVEN Set your DSN value
     RAVEN_CONFIG = {
-        'dsn': 'https://6fd43da0beb44f11bbaf29a39428f9a2:cf799746c8a845e9a6bebc6c3f39af72@app.getsentry.com/',
+        'dsn': 'https://00000000000000000000000000:00000000000000000000000000@app.getsentry.com/',
     }
 
 
@@ -226,7 +226,7 @@ AWS_MEDIA_FOLDER = 'media'
 AWS_S3_CUSTOM_DOMAIN    = '%s.s3.amazonaws.com'%(AWS_STORAGE_BUCKET_NAME)
 AWS_S3_CUSTOM_DOMAIN_MEDIA    = '%s.s3.amazonaws.com'%(AWS_STORAGE_BUCKET_NAME_MEDIA)
 
-AWS_STORAGE_BUCKET_NAME_MEDIA_SECURE = env.get("AWS_STORAGE_BUCKET_NAME_MEDIA_SECURE", 'disciplinereport-dev-secure')
+AWS_STORAGE_BUCKET_NAME_MEDIA_SECURE = env.get("AWS_STORAGE_BUCKET_NAME_MEDIA_SECURE", 'disciplinereport-secure-dev')
 AWS_S3_CUSTOM_DOMAIN_MEDIA_SECURE    = '%s.s3.amazonaws.com'%(AWS_STORAGE_BUCKET_NAME_MEDIA_SECURE)
 
 
@@ -457,7 +457,7 @@ EMAIL = {
 TEMPLATE_MODEL = 'core.Template'
 PAGE_MODEL = 'page.Page'
 MENU_MODEL = 'core.MenuItem'
-MENU_MODEL_CHOICES = ('page','form', 'projecttag', 'projectlist')
+MENU_MODEL_CHOICES = ('page',)
 
 
 
@@ -529,9 +529,7 @@ MAX_QUERY_COUNT = 200
 ZOHO_AUTH_KEY   = env.get("ZOHO_AUTH_KEY")
 HEROKU_API_KEY = env.get("HEROKU_API_KEY")
 
-RAVEN_CONFIG = {
-    'dsn': 'https://6b710b3d6947429dbd903175828e49a3:7b052b58833f4ddbaf097c9a4fdb7b38@app.getsentry.com/60579'    
-}
+
 
 #=============================================================================
 # ADMIN Settings
