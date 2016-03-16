@@ -60,3 +60,16 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+.DS_Store
+*.pyc
+*.pyo
+.env
+node_modules/
+dist
+*.egg
+*.egg-info
+_mailinglist
+.tox
+venv
+.sass-cache/
