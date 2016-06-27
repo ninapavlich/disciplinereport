@@ -125,6 +125,8 @@ if IS_ON_SERVER:
         'dsn': 'https://00000000000000000000000000:00000000000000000000000000@app.getsentry.com/',
     }
 
+#TEMP -- turn off debug panel
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 #==============================================================================
 # Auth / security
@@ -181,6 +183,7 @@ INSTALLED_APPS = (
     'disciplinereport.apps.email',
     'disciplinereport.apps.form',
     'disciplinereport.apps.page',
+    'disciplinereport.apps.data',
         
 
     'django.contrib.auth',
@@ -386,7 +389,7 @@ DATABASES = {
     }
 }
 
-# print DATABASES
+
 
 #==============================================================================
 # Caches

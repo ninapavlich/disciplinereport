@@ -32,8 +32,7 @@ class UserAdmin(BaseUserAdmin, UnsavedChangesAdmin):
         ('User', { 
             'fields': (
                 ("first_name","last_name"),
-                'job_title',
-                'directory_contact_description',
+                'project_role',
                 ('email',),
                 'password',
                 'about',

@@ -10,10 +10,10 @@ days==0.0.3
 distribute==0.6.38
 dj-database-url==0.1.2
 django-ace==1.0.2
-django-ace-overlay==0.3
+django-ace-overlay==0.5
 django-appconf==1.0.1
 django-batch-uploader==0.12.1
--e git+https://github.com/ninapavlich/django-carbon.git@c43d535f01d4c3a9f8a3b591859a25fc5813c490#egg=django_carbon-dev
+-e git+https://github.com/ninapavlich/django-carbon.git@c5098b28530a4d954e088448cb5ff66259046d81#egg=django_carbon-dev
 django-ckeditor==5.0.2
 django-ckeditor-improved==1.2.3
 django-debug-toolbar==1.4
@@ -25,7 +25,6 @@ django-heroku-postgresify==0.3
 django-herokuify==1.0.pre3
 django-htmlmin==0.7.0
 django-imagekit==3.2.7
-#-e git+https://github.com/ninapavlich/django-imagekit-cropper.git@1.14#egg=imagekit_cropper-dev
 django-imagekit-cropper==1.14
 django-inline-wrestler==4.4
 django-localflavor==1.1
@@ -58,7 +57,7 @@ pytz==2015.7
 raven==5.8.1
 requests==2.8.1
 requests-oauthlib==0.5.0
--e git+https://github.com/ninapavlich/simple-social-suture.git@0.4#egg=simple_social_suture-dev
+simple-social-suture==0.4
 simplejson==3.8.2
 six==1.10.0
 slimit==0.8.1

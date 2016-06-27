@@ -18,3 +18,5 @@ DATABASES = {
         'NAME': os.path.join(VAR_ROOT, 'disciplinereport'),
     },
 }
+
+# print DATABASES

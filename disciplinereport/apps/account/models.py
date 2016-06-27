@@ -15,8 +15,7 @@ from django.utils.functional import cached_property
 
 class User(BaseUser):
 
-    directory_contact_description = models.CharField(max_length=255, blank=True, null=True)
-    job_title = models.CharField(max_length=255, blank=True, null=True)
+    project_role = models.CharField(max_length=255, blank=True, null=True)
 
 
     @cached_property
@@ -79,3 +78,6 @@ class SocialContactLink(BaseSocialContactLink):
 class OrganizationSocialContactLink(BaseSocialContactLink):
 
     organization = models.ForeignKey('Organization')    
+
+    class Meta:
+        ordering = ['order']
