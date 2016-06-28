@@ -460,7 +460,7 @@ EMAIL = {
 TEMPLATE_MODEL = 'core.Template'
 PAGE_MODEL = 'page.Page'
 MENU_MODEL = 'core.MenuItem'
-MENU_MODEL_CHOICES = ('page',)
+MENU_MODEL_CHOICES = ('page', 'form')
 
 
 

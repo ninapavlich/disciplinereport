@@ -40,7 +40,7 @@ To work with this project locally you will need the following software:
 
 The first time you set up the project, run the following commands:
     
-    git clone git@bitbucket.org/ninapavlich/disciplinereport.git
+    git clone git@github.com:ninapavlich/disciplinereport.git
     cd disciplinereport
     virtualenv venv
     source venv/bin/activate
