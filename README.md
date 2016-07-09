@@ -102,3 +102,7 @@ Dump a database fixture:
 Dump the a configuration file fixture:
 
 	python manage.py dumpdata core form -e form.formentry -e form.fieldentry -e core.menuitem --natural-foreign --indent=4 > disciplinereport/fixtures/configuration.json
+
+Dump a database fixture:
+
+    python manage.py loaddata disciplinereport/fixtures/core.json
