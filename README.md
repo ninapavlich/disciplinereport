@@ -96,7 +96,7 @@ To commit changes and push them to bitbucket:
 
 Dump a database fixture:
 
-	dj dumpdata --natural-foreign --indent=4 -e sessions -e admin -e contenttypes -e auth.Permission > disciplinereport/fixtures/core.json
+	python manage.py dumpdata --natural-foreign --indent=4 -e sessions -e admin -e contenttypes -e auth.Permission > disciplinereport/fixtures/core.json
     
 
 Dump the a configuration file fixture:

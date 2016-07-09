@@ -41,6 +41,10 @@ class SchoolRepresentative(BasePerson):
     school = models.ForeignKey('School')
 
 class BaseEntity(BasePage, StreetAddressAtom):
+
+    email = models.CharField(_('Home Phone'), max_length=255, blank=True, null=True) 
+    phone_number = models.CharField(_('Phone Number'), max_length=255, blank=True, null=True) 
+    website = models.CharField(_('Website'), max_length=255, blank=True, null=True) 
     
     def get_google_map_link_url(self):
         return u'https://www.google.com/maps/place/%s,+%s,+%s+%s/%s,%s'%(self.street_1, self.city, self.state, self.zipcode, self.latitude, self.longitude)
@@ -87,6 +91,7 @@ class SchoolDistrict(BaseEntity):
 
 
 
+
 class School(BaseEntity):
     """
     district :FK
@@ -130,15 +135,20 @@ class BaseDatum(BasePage):
         'sped':"Percentage students receiving Special Education services.",
         'iss': "In School Suspension rates per 100 students.",
         'oss': "Out of School Suspension rates per 100 students.",
+        'expulsions':"",
         'rtl': "Referrals to law enforcement rates per 100 students.",
         'one_offense': "Percentage of students with at least one offense.",
-        'ratial_disparity_impact': "",
+        'school_arrests':"",
+        'racial_disparity_impact': "",
+        'district_inequality_contribution':"",
         'student_turnover': "",
         'poor_attendance': "",
         'proficient_math': "Percentage students proficient or better in Math",
         'proficient_reading': "Percentage students proficient or better in Reading",
         'proficient_writing': "Percentage students proficient or better in Writing"
     }
+
+
 
     #FACTS
     school_year = models.ForeignKey('SchoolYear')
@@ -159,12 +169,18 @@ class BaseDatum(BasePage):
         help_text=help['iss'],)
     oss = models.FloatField(_('Out-of-school Suspensions'), blank=True, null=True,
         help_text=help['oss'],)
+    expulsions = models.FloatField(_('Expulsions'), blank=True, null=True,
+        help_text=help['expulsions'],)
     rtl = models.FloatField(_('Referrals to Law Enforcement'), blank=True, null=True,
         help_text=help['rtl'],)
     one_offense = models.FloatField(_('One Offense'), blank=True, null=True,
         help_text=help['one_offense'],)
-    ratial_disparity_impact = models.FloatField(_('Ratial Disparity Impact'), 
-        blank=True, null=True, help_text=help['one_offense'],)
+    school_arrests = models.FloatField(_('School Arrests'), blank=True, null=True,
+        help_text=help['school_arrests'],)
+    racial_disparity_impact = models.FloatField(_('Racial Disparity Impact'), 
+        blank=True, null=True, help_text=help['racial_disparity_impact'],)
+    district_inequality_contribution = models.FloatField(_('District Inequality Contribution'), 
+        blank=True, null=True, help_text=help['district_inequality_contribution'],)
 
     #STUDENT PUSHOUT
     student_turnover = models.FloatField(_('Student Turnover'), 
@@ -182,6 +198,7 @@ class BaseDatum(BasePage):
         blank=True, null=True, help_text=help['proficient_reading'],)
     proficient_writing = models.FloatField(_('Proficient Writing'), 
         blank=True, null=True, help_text=help['proficient_writing'],)
+
 
     @classmethod
     def columns(cls):
@@ -202,10 +219,7 @@ class SchoolDatum(BaseDatum):
         'district_inequality_contribution': "",
         'spf_growth_points': ""
     }
-
-    #SCHOOL-TO-JAIL TRACK
-    district_inequality_contribution = models.FloatField(_('District Inequality Contribution'), 
-        blank=True, null=True, help_text=help['district_inequality_contribution'],)
+    
 
     #ACADEMIC ACHIEVEMENT
     spf_growth_points = models.FloatField(_('SPF Groth Points'), 
