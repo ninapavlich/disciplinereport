@@ -126,7 +126,7 @@ if IS_ON_SERVER:
     }
 
 #TEMP -- turn off debug panel
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
+# DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 #==============================================================================
 # Auth / security

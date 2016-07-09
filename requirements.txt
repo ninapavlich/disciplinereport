@@ -7,6 +7,7 @@ beautifulsoup4==4.3.2
 boto==2.36.0
 csscompressor==0.9.3
 days==0.0.3
+diff-match-patch==20121119
 distribute==0.6.38
 dj-database-url==0.1.2
 django-ace==1.0.2
@@ -26,6 +27,7 @@ django-herokuify==1.0.pre3
 django-htmlmin==0.7.0
 django-imagekit==3.2.7
 django-imagekit-cropper==1.14
+django-import-export==0.4.5
 django-inline-wrestler==4.4
 django-localflavor==1.1
 django-object-actions==0.5.1
@@ -62,6 +64,7 @@ simplejson==3.8.2
 six==1.10.0
 slimit==0.8.1
 sqlparse==0.1.16
+tablib==0.11.2
 twitter-text-python==1.1.0
 twython==3.3.0
 wsgiref==0.1.2

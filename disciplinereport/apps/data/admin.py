@@ -106,19 +106,41 @@ class StateAdmin(BaseEntityAdmin):
         })
     )
 
+class SchoolDistrictDatumAdmin(admin.ModelAdmin):
+    pass
+
+
+class SchoolDistrictDatumInline(admin.TabularInline):
+    model = SchoolDistrictDatum
+    extra = 0
+    fields = ['school_year', 'population', 'soc', 'frl', 'ell', 'sped', 'iss', 
+        'oss', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
+        'racial_disparity_impact', 'district_inequality_contribution',
+        'student_turnover', 'poor_attendance', 'proficient_math', 
+        'proficient_reading', 'proficient_writing' ]
+
+
+
 class SchoolDistrictAdmin(BaseEntityAdmin):
     core_fields = (
         ('edit_parent','parent'),
         ('title','slug'),
         ('publication_status'),
+        ('email','website',),
+        'phone_number',
+        ('street_1','street_2'),
+        ('city','state',),
+        'zipcode',
+        ('latitude','longitude')
     )
-    
+
+
     path_fields = BaseEntityAdmin.path_fields
     seo_fields = BaseEntityAdmin.seo_fields
     meta_fields = BaseEntityAdmin.meta_fields
 
     fieldsets = (
-        ("Main Body", {
+        ("Main Content", {
             'fields': core_fields,
             'classes': ( 'grp-collapse grp-open', )
         }),
@@ -136,6 +158,8 @@ class SchoolDistrictAdmin(BaseEntityAdmin):
             'classes': ( 'grp-collapse grp-closed', )
         })
     )
+
+    inlines = [SchoolDistrictDatumInline]
 
 class SchoolAdmin(BaseEntityAdmin):
     core_fields = (
@@ -171,8 +195,14 @@ class SchoolAdmin(BaseEntityAdmin):
         })
     )
 
+class SchoolYearAdmin(admin.ModelAdmin):
+    pass
+
+
 
 admin.site.register(State, StateAdmin)
 admin.site.register(SchoolDistrict, SchoolDistrictAdmin)
 admin.site.register(School, SchoolAdmin)
 admin.site.register(CityRegion, BaseTagAdmin)
+admin.site.register(SchoolYear, SchoolYearAdmin)
+admin.site.register(SchoolDistrictDatum, SchoolDistrictDatumAdmin)

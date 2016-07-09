@@ -42,7 +42,7 @@ class SchoolRepresentative(BasePerson):
 
 class BaseEntity(BasePage, StreetAddressAtom):
 
-    email = models.CharField(_('Home Phone'), max_length=255, blank=True, null=True) 
+    email = models.CharField(_('Email'), max_length=255, blank=True, null=True) 
     phone_number = models.CharField(_('Phone Number'), max_length=255, blank=True, null=True) 
     website = models.CharField(_('Website'), max_length=255, blank=True, null=True) 
     
