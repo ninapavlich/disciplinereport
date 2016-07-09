@@ -1,6 +1,9 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.utils.functional import cached_property
+
 
 from carbon.atoms.models.user import StreetAddressAtom, PersonAtom, \
     PhoneContactAtom, StreetAddressMolecule
@@ -87,9 +90,16 @@ class StateRegion(BaseEntity):
     pass
 
 class SchoolDistrict(BaseEntity):
-    pass
+    
+    def get_data(self):
+        return SchoolDistrictDatum.objects.filter(school_district=self)
 
+    @cached_property
+    def latest_data(self):
+        return SchoolDistrictDatum.objects.filter(school_district=self).first()
 
+    def get_absolute_url(self):
+       return reverse('district_detail',  args=[self.slug] )
 
 
 class School(BaseEntity):

@@ -63,6 +63,7 @@ urlpatterns +=  patterns('',
     url(r'^', include('disciplinereport.apps.media.urls')),
     url(r'^', include('disciplinereport.apps.form.urls')),
     url(r'^', include('disciplinereport.apps.email.urls')),
+    url(r'^', include('disciplinereport.apps.data.urls')),
     url(r'^', include('disciplinereport.apps.page.urls')),
     
 )
