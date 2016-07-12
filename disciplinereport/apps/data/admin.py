@@ -114,7 +114,7 @@ class StateAdmin(BaseEntityAdmin):
         })
     )
 
-class SchoolDistrictDatumAdmin(admin.ModelAdmin):
+class SchoolDistrictDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     pass
 
 
@@ -129,7 +129,7 @@ class SchoolDistrictDatumInline(admin.TabularInline):
 
 
 
-class SchoolDistrictAdmin(BaseEntityAdmin, ImportExportModelAdmin):
+class SchoolDistrictAdmin(ImportExportModelAdmin, BaseEntityAdmin):
     core_fields = (
         ('edit_parent','parent'),
         ('title','slug'),
