@@ -606,12 +606,13 @@ CKEDITOR_CONFIGS = {
     'usergroup_synopsis_ckeditor': copy.deepcopy(SMALL_CKEDITOR),
 }
 
+MAPBOX_ACCESS_TOKEN = env.get('MAPBOX_ACCESS_TOKEN')
 
 
 CUSTOM_SETTINGS = ('STATIC_URL', 'IS_ON_SERVER','DEBUG','USE_SEARCH_INDEX',
     'SITE_ID','SITE_TITLE','HELP_EMAIL', 'HELP_PHONE'
     'SECURE_MEDIA_URL', 'MEDIA_URL', 'USE_SSL','SITE_DESCRIPTION',
-    'CACHE_DURATION')
+    'CACHE_DURATION', 'MAPBOX_ACCESS_TOKEN')
 
 
 #Import file with all the hardcoded paths and values
