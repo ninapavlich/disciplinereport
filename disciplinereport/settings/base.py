@@ -172,6 +172,7 @@ INSTALLED_APPS = (
     'django_unsaved_changes', 
     'django_batch_uploader',  
     'simple_social_suture',
+    'import_export',
 
     'carbon.atoms',
     

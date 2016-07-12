@@ -15,12 +15,19 @@ from django_unsaved_changes.admin import UnsavedChangesAdmin
 
 from django_inline_wrestler.admin import TabularInlineOrderable
 
+from import_export import resources
+
 from .models import *
+
+
+class SchoolDistrictResource(resources.ModelResource):
+
+    class Meta:
+        model = SchoolDistrict
+
 
 class BaseTagAdmin(VersionAdmin):
     pass
-
-
 
 class BaseEntityAdmin(VersionAdmin, HierarchicalContentAdmin):
     # form = PageAdminForm
