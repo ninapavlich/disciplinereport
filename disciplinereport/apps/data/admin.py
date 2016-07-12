@@ -16,6 +16,7 @@ from django_unsaved_changes.admin import UnsavedChangesAdmin
 from django_inline_wrestler.admin import TabularInlineOrderable
 
 from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 from .models import *
 
@@ -128,7 +129,7 @@ class SchoolDistrictDatumInline(admin.TabularInline):
 
 
 
-class SchoolDistrictAdmin(BaseEntityAdmin):
+class SchoolDistrictAdmin(BaseEntityAdmin, ImportExportModelAdmin):
     core_fields = (
         ('edit_parent','parent'),
         ('title','slug'),
