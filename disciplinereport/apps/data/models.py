@@ -90,6 +90,8 @@ class StateRegion(BaseEntity):
     pass
 
 class SchoolDistrict(BaseEntity):
+
+    state_region = models.ForeignKey('StateRegion')
     
     def get_data(self):
         return SchoolDistrictDatum.objects.filter(school_district=self)
