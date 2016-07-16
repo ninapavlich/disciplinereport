@@ -20,6 +20,30 @@ from import_export.admin import ImportExportModelAdmin
 
 from .models import *
 
+class BaseTitleAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
+
+    core_fields = (
+        ('title','slug'),
+
+    )
+    meta_fields = BaseVersionableAdmin.meta_fields
+    fieldsets = (
+        ("Main Body", {
+            'fields': core_fields,
+            'classes': ( 'grp-collapse grp-open', )
+        }),
+        
+        ("Meta", {
+            'fields': meta_fields,
+            'classes': ( 'grp-collapse grp-closed', )
+        })
+    )
+    search_fields = ('title','admin_note')
+    readonly_fields = (
+        "version", "created_date", "created_by", "modified_date", "modified_by",
+    )
+
 
 class SchoolDistrictResource(resources.ModelResource):
 
@@ -134,6 +158,8 @@ class SchoolDistrictAdmin(ImportExportModelAdmin, BaseEntityAdmin):
         ('edit_parent','parent'),
         ('title','slug'),
         ('publication_status'),
+        ('state_obj', 'state_region'),
+        ('county','district_code'),
         ('email','website',),
         'phone_number',
         ('street_1','street_2'),
@@ -141,6 +167,8 @@ class SchoolDistrictAdmin(ImportExportModelAdmin, BaseEntityAdmin):
         'zipcode',
         ('latitude','longitude')
     )
+
+
 
 
     path_fields = BaseEntityAdmin.path_fields
@@ -206,35 +234,21 @@ class SchoolAdmin(BaseEntityAdmin):
 class SchoolYearAdmin(admin.ModelAdmin):
     pass
 
-class StateRegionAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("title",)}
+class CityRegionAdmin(BaseTitleAdmin):
+    pass
 
-    core_fields = (
-        ('title','slug'),
+class StateRegionAdmin(BaseTitleAdmin):
+    pass
 
-    )
-    meta_fields = BaseVersionableAdmin.meta_fields
-    fieldsets = (
-        ("Main Body", {
-            'fields': core_fields,
-            'classes': ( 'grp-collapse grp-open', )
-        }),
-        
-        ("Meta", {
-            'fields': meta_fields,
-            'classes': ( 'grp-collapse grp-closed', )
-        })
-    )
-    search_fields = ('title','admin_note')
-    readonly_fields = (
-        "version", "created_date", "created_by", "modified_date", "modified_by",
-    )
+class CountyAdmin(BaseTitleAdmin):
+    pass
 
 
 admin.site.register(State, StateAdmin)
 admin.site.register(SchoolDistrict, SchoolDistrictAdmin)
 admin.site.register(School, SchoolAdmin)
-admin.site.register(CityRegion, BaseTagAdmin)
+admin.site.register(CityRegion, CityRegionAdmin)
 admin.site.register(StateRegion, StateRegionAdmin)
+admin.site.register(County, CountyAdmin)
 admin.site.register(SchoolYear, SchoolYearAdmin)
 admin.site.register(SchoolDistrictDatum, SchoolDistrictDatumAdmin)

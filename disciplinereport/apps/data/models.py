@@ -89,9 +89,15 @@ class State(BaseEntity):
 class StateRegion(BaseEntity):
     pass
 
+class County(BaseEntity):
+    pass
+
 class SchoolDistrict(BaseEntity):
 
+    state_obj = models.ForeignKey('State')
     state_region = models.ForeignKey('StateRegion')
+    county = models.ForeignKey('County')
+    district_code = models.CharField(_("District Code"), max_length=255, blank=True, null=True)
     
     def get_data(self):
         return SchoolDistrictDatum.objects.filter(school_district=self)
@@ -102,6 +108,10 @@ class SchoolDistrict(BaseEntity):
 
     def get_absolute_url(self):
        return reverse('district_detail',  args=[self.slug] )
+
+    @cached_property
+    def hierarchical_children(self):
+        return []
 
 
 class School(BaseEntity):
