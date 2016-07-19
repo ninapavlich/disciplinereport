@@ -92,6 +92,15 @@ class SchoolDistrict(BaseEntity):
     def latest_data(self):
         return SchoolDistrictDatum.objects.filter(school_district=self).first()
 
+    @cached_property
+    def data_columns(self):
+        return self.latest_data.__class__.data_columns_formatted()
+
+    @cached_property
+    def normalized_data_columns(self):
+        return self.latest_data.__class__.normalized_data_columns_formatted()
+
+
     def get_absolute_url(self):
        return reverse('district_detail',  args=[self.slug] )
 
@@ -207,13 +216,69 @@ class BaseDatum(BasePage):
     proficient_writing = models.FloatField(_('Proficient Writing'), 
         blank=True, null=True, help_text=help['proficient_writing'],)
 
+    @cached_property
+    def get_data_column_values(self):
+        columns = self.__class__.data_columns_formatted()
+        for column in columns:
+            column['value'] = getattr(self, column['slug'])        
+        return columns
+
+
+    @cached_property
+    def get_normalized_data_column_values(self):
+        columns = self.__class__.normalized_data_columns_formatted()
+        for column in columns:
+            column['value'] = getattr(self, column['slug'])        
+        return columns
+
 
     @classmethod
     def columns(cls):
         return ['school_year', 'population', 'soc', 'frl', 'iss', 'oss', 'rtl', 
-        'one_offense', 'ratial_disparity_impact','student_turnover',
+        'one_offense', 'racial_disparity_impact', 
+        'district_inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
+
+    @classmethod
+    def data_columns(cls):
+        return ['population', 'soc', 'frl', 'iss', 'oss', 'rtl', 
+        'one_offense', 'racial_disparity_impact', 
+        'district_inequality_contribution', 'student_turnover',
+        'poor_attendance', 'proficient_math', 'proficient_reading',
+        'proficient_writing']
+
+    @classmethod
+    def normalized_data_columns(cls):
+        return ['soc', 'frl', 'iss', 'oss', 'rtl', 
+        'one_offense', 'student_turnover',
+        'poor_attendance', 'proficient_math', 'proficient_reading',
+        'proficient_writing']
+
+    @classmethod
+    def data_columns_formatted(cls):
+        raw_columns = cls.data_columns()
+        output = []
+        for column in raw_columns:
+            field = cls._meta.get_field(column)
+            output.append({
+                'title':field.verbose_name.title(),
+                'slug':column
+            })            
+        return output
+
+
+    @classmethod
+    def normalized_data_columns_formatted(cls):
+        raw_columns = cls.normalized_data_columns()
+        output = []
+        for column in raw_columns:
+            field = cls._meta.get_field(column)
+            output.append({
+                'title':field.verbose_name.title(),
+                'slug':column
+            })            
+        return output
     
     class Meta:
         abstract = True
@@ -243,6 +308,9 @@ class SchoolDatum(BaseDatum):
 
 class SchoolDistrictDatum(BaseDatum):
     school_district = models.ForeignKey('SchoolDistrict')
+
+class StateDatum(BaseDatum):
+    state = models.ForeignKey('State')    
 
 
 
