@@ -144,6 +144,9 @@ class SchoolDistrictDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 class StateDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     pass
 
+class SchoolTypeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    pass
+
 
 class SchoolDistrictDatumInline(admin.TabularInline):
     model = SchoolDistrictDatum
@@ -256,3 +259,4 @@ admin.site.register(County, CountyAdmin)
 admin.site.register(SchoolYear, SchoolYearAdmin)
 admin.site.register(SchoolDistrictDatum, SchoolDistrictDatumAdmin)
 admin.site.register(StateDatum, StateDatumAdmin)
+admin.site.register(SchoolType, SchoolTypeAdmin)

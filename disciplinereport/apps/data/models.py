@@ -78,12 +78,16 @@ class StateRegion(BaseEntity):
 class County(BaseEntity):
     pass
 
+class SchoolType(BaseEntity):
+    pass
+
 class SchoolDistrict(BaseEntity):
 
     state_obj = models.ForeignKey('State')
     state_region = models.ForeignKey('StateRegion')
     county = models.ForeignKey('County')
     district_code = models.CharField(_("District Code"), max_length=255, blank=True, null=True)
+
     
     def get_data(self):
         return SchoolDistrictDatum.objects.filter(school_district=self)
@@ -122,6 +126,7 @@ class School(BaseEntity):
     
     school_district = models.ForeignKey('SchoolDistrict')
     city_region = models.ForeignKey('CityRegion')
+    school_type = models.ForeignKey('SchoolType')
 
     is_charter = models.BooleanField(default=False)
     is_pathways = models.BooleanField(default=False)
