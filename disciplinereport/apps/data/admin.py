@@ -19,6 +19,7 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
 from .models import *
+from .forms import *
 
 class BaseTitleAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
@@ -249,6 +250,26 @@ class StateRegionAdmin(BaseTitleAdmin):
 class CountyAdmin(BaseTitleAdmin):
     pass
 
+class TooltipAdmin(BaseTitleAdmin):
+    form = TooltipAdminForm
+    core_fields = (
+        ('title','slug'),
+        ('content')
+
+    )
+    meta_fields = BaseTitleAdmin.meta_fields
+    fieldsets = (
+        ("Main Body", {
+            'fields': core_fields,
+            'classes': ( 'grp-collapse grp-open', )
+        }),
+        
+        ("Meta", {
+            'fields': meta_fields,
+            'classes': ( 'grp-collapse grp-closed', )
+        })
+    )
+
 
 admin.site.register(State, StateAdmin)
 admin.site.register(SchoolDistrict, SchoolDistrictAdmin)
@@ -260,3 +281,5 @@ admin.site.register(SchoolYear, SchoolYearAdmin)
 admin.site.register(SchoolDistrictDatum, SchoolDistrictDatumAdmin)
 admin.site.register(StateDatum, StateDatumAdmin)
 admin.site.register(SchoolType, SchoolTypeAdmin)
+admin.site.register(Tooltip, TooltipAdmin)
+

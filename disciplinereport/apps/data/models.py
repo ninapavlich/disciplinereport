@@ -61,6 +61,10 @@ true&markers=color:0x85200c|label:|%s,%s'%(self.latitude, self.longitude, self.l
     class Meta:
         abstract = True
 
+class Tooltip(BaseTagMolecule):
+    @cached_property
+    def tag_children(self):
+        return []
 
 class SchoolYear(BaseTagMolecule):
     pass
