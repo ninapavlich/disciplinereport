@@ -116,6 +116,7 @@ class SchoolDistrict(BaseEntity):
 
     @cached_property
     def data_columns(self):
+        print 'latest data columns? '
         return self.latest_data.__class__.data_columns_formatted()
 
     @cached_property
