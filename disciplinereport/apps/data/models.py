@@ -55,7 +55,7 @@ class BaseEntity(BasePage, StreetAddressAtom):
     def get_google_map_image_url(self):
 
         return u'https://maps.googleapis.com/maps/api/staticmap?center=%s,%s&zo\
-om=10&scale=false&size=800x500&maptype=roadmap&format=png&visual_refresh=\
+om=10&scale=false&size=400x250&maptype=roadmap&format=png&visual_refresh=\
 true&markers=color:0x85200c|label:|%s,%s'%(self.latitude, self.longitude, self.latitude, self.longitude)
 
     class Meta:
