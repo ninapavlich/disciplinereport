@@ -126,6 +126,9 @@ class SchoolDistrict(BaseEntity):
     def get_absolute_url(self):
        return reverse('district_detail',  args=[self.slug] )
 
+    def get_data_url(self):
+       return reverse('district_detail_download',  args=[self.slug] )
+
     @cached_property
     def hierarchical_children(self):
         return []
@@ -239,8 +242,20 @@ class BaseDatum(BasePage):
     proficient_writing = models.FloatField(_('Proficient Writing'), 
         blank=True, null=True, help_text=help['proficient_writing'],)
 
+    @property
+    def entity(self):
+        return None
+
     @cached_property
-    def get_data_column_values(self):
+    def column_values(self):
+        columns = self.__class__.columns_formatted()
+        for column in columns:
+            column['value'] = getattr(self, column['slug'])        
+        return columns
+
+
+    @cached_property
+    def data_column_values(self):
         columns = self.__class__.data_columns_formatted()
         for column in columns:
             column['value'] = getattr(self, column['slug'])        
@@ -248,7 +263,7 @@ class BaseDatum(BasePage):
 
 
     @cached_property
-    def get_normalized_data_column_values(self):
+    def normalized_data_column_values(self):
         columns = self.__class__.normalized_data_columns_formatted()
         for column in columns:
             column['value'] = getattr(self, column['slug'])        
@@ -257,7 +272,7 @@ class BaseDatum(BasePage):
 
     @classmethod
     def columns(cls):
-        return ['school_year', 'population', 'soc', 'frl', 'iss', 'oss', 'rtl', 
+        return ['entity', 'school_year', 'population', 'soc', 'frl', 'iss', 'oss', 'rtl', 
         'one_offense', 'racial_disparity_impact', 
         'district_inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
@@ -279,26 +294,28 @@ class BaseDatum(BasePage):
         'proficient_writing']
 
     @classmethod
-    def data_columns_formatted(cls):
-        raw_columns = cls.data_columns()
-        output = []
-        for column in raw_columns:
-            field = cls._meta.get_field(column)
-            output.append({
-                'title':field.verbose_name.title(),
-                'slug':column
-            })            
-        return output
+    def columns_formatted(cls):
+        return cls.format_columns(cls.columns())
 
+    @classmethod
+    def data_columns_formatted(cls):
+        return cls.format_columns(cls.data_columns())
 
     @classmethod
     def normalized_data_columns_formatted(cls):
-        raw_columns = cls.normalized_data_columns()
+        return cls.format_columns(cls.normalized_data_columns())
+
+    @classmethod
+    def format_columns(cls, raw_columns):
         output = []
         for column in raw_columns:
-            field = cls._meta.get_field(column)
+            try:
+                field = cls._meta.get_field(column)
+                field_name = field.verbose_name.title()
+            except:
+                field_name = column
             output.append({
-                'title':field.verbose_name.title(),
+                'title':field_name,
                 'slug':column
             })            
         return output
@@ -316,6 +333,9 @@ class SchoolDatum(BaseDatum):
         'spf_growth_points': ""
     }
     
+    @property
+    def entity(self):
+        return self.school
 
     #ACADEMIC ACHIEVEMENT
     spf_growth_points = models.FloatField(_('SPF Groth Points'), 
@@ -332,8 +352,16 @@ class SchoolDatum(BaseDatum):
 class SchoolDistrictDatum(BaseDatum):
     school_district = models.ForeignKey('SchoolDistrict')
 
+    @property
+    def entity(self):
+        return self.school_district
+
 class StateDatum(BaseDatum):
     state = models.ForeignKey('State')    
+
+    @property
+    def entity(self):
+        return self.state
 
 
 
