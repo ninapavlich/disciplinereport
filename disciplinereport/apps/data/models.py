@@ -81,6 +81,7 @@ class County(BaseEntity):
 class SchoolType(BaseEntity):
     pass
 
+
 class SchoolDistrict(BaseEntity):
 
     state_obj = models.ForeignKey('State')
@@ -92,9 +93,26 @@ class SchoolDistrict(BaseEntity):
     def get_data(self):
         return SchoolDistrictDatum.objects.filter(school_district=self)
 
+    def get_value_difference(self, attribute_name):
+        current_data = self.latest_data
+        previous_data = self.previous_data
+        print 'get difference between %s and %s'%(getattr(current_data, attribute_name), getattr(previous_data, attribute_name))
+
+        if not current_data or not previous_data:
+            return 0
+        
+        return getattr(current_data, attribute_name) - getattr(previous_data, attribute_name)
+
     @cached_property
     def latest_data(self):
         return SchoolDistrictDatum.objects.filter(school_district=self).first()
+
+    @cached_property
+    def previous_data(self):
+        try:
+            return SchoolDistrictDatum.objects.filter(school_district=self)[1]
+        except:
+            return None
 
     @cached_property
     def data_columns(self):

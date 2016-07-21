@@ -14,13 +14,19 @@ from ..models import *
 register = Library()
 
 @register.assignment_tag()
-def get_city_regions(slug=None):
+def get_city_regions():
     return CityRegion.objects.all()
 
 @register.assignment_tag()
-def get_state_regions(slug=None):
+def get_state_regions():
     return StateRegion.objects.all()
 
 @register.assignment_tag()
-def get_school_types(slug=None):
+def get_school_types():
     return SchoolType.objects.all()
+
+@register.assignment_tag()
+def get_value_difference(object, attribute):
+    return object.get_value_difference(attribute)
+
+
