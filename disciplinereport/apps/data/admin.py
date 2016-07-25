@@ -107,6 +107,9 @@ class BaseEntityAdmin(VersionAdmin, HierarchicalContentAdmin):
         })
     )
 
+    list_display = ['title', 'website', 'latitude', 'longitude']
+    list_display_links = ['title']
+    # list_editabel = ['latitude', 'longitude']
 
 class StateAdmin(BaseEntityAdmin):
     core_fields = (

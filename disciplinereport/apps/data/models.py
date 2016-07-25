@@ -296,6 +296,11 @@ class BaseDatum(BasePage):
     def entity(self):
         return None
 
+    def generate_title(self):
+        title = '%s %s'%(self.__class__.__name__, self.school_year)
+        print 'generate %s'%(title)
+        return title
+
     @cached_property
     def column_values(self):
         columns = self.__class__.columns_formatted()
