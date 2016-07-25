@@ -53,10 +53,11 @@ class BaseEntity(BasePage, StreetAddressAtom):
         return u'https://www.google.com/maps/place/%s,+%s,+%s+%s/%s,%s'%(self.street_1, self.city, self.state, self.zipcode, self.latitude, self.longitude)
 
     def get_google_map_image_url(self):
-
-        return u'https://maps.googleapis.com/maps/api/staticmap?center=%s,%s&zo\
-om=10&scale=false&size=400x250&maptype=roadmap&format=png&visual_refresh=\
-true&markers=color:0x85200c|label:|%s,%s'%(self.latitude, self.longitude, self.latitude, self.longitude)
+        color = '941825'
+        return 'https://api.mapbox.com/v4/mapbox.streets/pin-m-marker+%s(%s,%s)/%s,%s,10/400x250@2x.png?access_token=%s'%(color, self.longitude, self.latitude, self.longitude, self.latitude, settings.MAPBOX_ACCESS_TOKEN)
+#         return u'https://maps.googleapis.com/maps/api/staticmap?center=%s,%s&zo\
+# om=10&scale=false&size=400x250&maptype=roadmap&format=png&visual_refresh=\
+# true&markers=color:0x85200c|label:|%s,%s'%(self.latitude, self.longitude, self.latitude, self.longitude)
 
     class Meta:
         abstract = True
@@ -94,27 +95,68 @@ class SchoolDistrict(BaseEntity):
     district_code = models.CharField(_("District Code"), max_length=255, blank=True, null=True)
 
     
-    def get_data(self):
-        return SchoolDistrictDatum.objects.filter(school_district=self)
 
     def get_value_difference(self, attribute_name):
         current_data = self.latest_data
         previous_data = self.previous_data
-        print 'get difference between %s and %s'%(getattr(current_data, attribute_name), getattr(previous_data, attribute_name))
-
-        if not current_data or not previous_data:
-            return 0
+        attribute_name_formatted = BaseDatum.format_column(attribute_name)
         
-        return getattr(current_data, attribute_name) - getattr(previous_data, attribute_name)
+
+        if current_data and not previous_data:
+            message = "%s was %s in %s"%(attribute_name_formatted, getattr(current_data, attribute_name), current_data.school_year)
+
+            return {
+                'difference':0,
+                'current_data':current_data,
+                'previous_data':None,
+                'attribute_name':attribute_name,
+                'attribute_name_formatted':attribute_name_formatted,
+                'verbose':message
+            }
+
+        if previous_data and not current_data:
+            message = "%s was %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year)
+
+            return {
+                'difference':0,
+                'current_data':None,
+                'previous_data':previous_data,
+                'attribute_name':attribute_name,
+                'attribute_name_formatted':attribute_name_formatted,
+                'verbose':message
+            }
+
+        difference = getattr(current_data, attribute_name) - getattr(previous_data, attribute_name)
+
+        if difference == 0:
+            message = "%s stayed the same from %s to %s at %s"%(attribute_name_formatted, previous_data.school_year, current_data.school_year, getattr(current_data, attribute_name))
+        elif difference > 0:
+            message = "%s has increased from %s in %s to %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year, getattr(current_data, attribute_name), current_data.school_year)
+        else:
+            message = "%s has decreased from %s in %s to %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year, getattr(current_data, attribute_name), current_data.school_year)
+        return {
+            'difference':difference,
+            'current_data':current_data,
+            'previous_data':previous_data,
+            'attribute_name':attribute_name,
+            'attribute_name_formatted':attribute_name_formatted,
+            'verbose':message
+        }
+
+        
+
+    @cached_property
+    def data(self):
+        return SchoolDistrictDatum.objects.filter(school_district=self).select_related('school_year').select_related('school_district')
 
     @cached_property
     def latest_data(self):
-        return SchoolDistrictDatum.objects.filter(school_district=self).first()
+        return SchoolDistrictDatum.objects.filter(school_district=self).select_related('school_year').select_related('school_district').first()
 
     @cached_property
     def previous_data(self):
         try:
-            return SchoolDistrictDatum.objects.filter(school_district=self)[1]
+            return SchoolDistrictDatum.objects.filter(school_district=self).select_related('school_year').select_related('school_district')[1]
         except:
             return None
 
@@ -314,17 +356,21 @@ class BaseDatum(BasePage):
     def format_columns(cls, raw_columns):
         output = []
         for column in raw_columns:
-            try:
-                field = cls._meta.get_field(column)
-                field_name = field.verbose_name.title()
-            except:
-                field_name = column
             output.append({
-                'title':field_name,
+                'title':cls.format_column(column),
                 'slug':column
             })            
         return output
-    
+
+    @classmethod
+    def format_column(cls, column):
+        try:
+            field = cls._meta.get_field(column)
+            field_name = field.verbose_name.title()
+        except:
+            field_name = column
+        return field_name
+
     class Meta:
         abstract = True
 

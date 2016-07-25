@@ -75,7 +75,7 @@ def format_data(response, objects):
 
     for object in objects:
         ctr = 0
-        for row in object.get_data():
+        for row in object.data:
             row_values = row.column_values
             if ctr == 0:
                 header_columns = []
