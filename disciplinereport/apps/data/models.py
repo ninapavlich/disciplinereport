@@ -131,9 +131,9 @@ class SchoolDistrict(BaseEntity):
         if difference == 0:
             message = "%s stayed the same from %s to %s at %s"%(attribute_name_formatted, previous_data.school_year, current_data.school_year, getattr(current_data, attribute_name))
         elif difference > 0:
-            message = "%s increased from %s in %s to %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year, getattr(current_data, attribute_name), current_data.school_year)
+            message = "%s increased to %s in %s from %s in %s"%(attribute_name_formatted, getattr(current_data, attribute_name), current_data.school_year, getattr(previous_data, attribute_name), previous_data.school_year)
         else:
-            message = "%s decreased from %s in %s to %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year, getattr(current_data, attribute_name), current_data.school_year)
+            message = "%s decreased to %s in %s from %s in %s"%(attribute_name_formatted, getattr(current_data, attribute_name), current_data.school_year, getattr(previous_data, attribute_name), previous_data.school_year)
         return {
             'difference':difference,
             'current_data':current_data,
