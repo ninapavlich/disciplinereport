@@ -131,9 +131,9 @@ class SchoolDistrict(BaseEntity):
         if difference == 0:
             message = "%s stayed the same from %s to %s at %s"%(attribute_name_formatted, previous_data.school_year, current_data.school_year, getattr(current_data, attribute_name))
         elif difference > 0:
-            message = "%s has increased from %s in %s to %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year, getattr(current_data, attribute_name), current_data.school_year)
+            message = "%s increased from %s in %s to %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year, getattr(current_data, attribute_name), current_data.school_year)
         else:
-            message = "%s has decreased from %s in %s to %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year, getattr(current_data, attribute_name), current_data.school_year)
+            message = "%s decreased from %s in %s to %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year, getattr(current_data, attribute_name), current_data.school_year)
         return {
             'difference':difference,
             'current_data':current_data,
@@ -161,8 +161,11 @@ class SchoolDistrict(BaseEntity):
             return None
 
     @cached_property
+    def columns(self):
+        return self.latest_data.__class__.columns_formatted()
+
+    @cached_property
     def data_columns(self):
-        print 'latest data columns? '
         return self.latest_data.__class__.data_columns_formatted()
 
     @cached_property
@@ -319,7 +322,8 @@ class BaseDatum(BasePage):
 
     @classmethod
     def columns(cls):
-        return ['entity', 'school_year', 'population', 'soc', 'frl', 'iss', 'oss', 'rtl', 
+        return ['entity', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped',
+        'iss', 'oss', 'rtl', 
         'one_offense', 'racial_disparity_impact', 
         'district_inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
@@ -327,7 +331,8 @@ class BaseDatum(BasePage):
 
     @classmethod
     def data_columns(cls):
-        return ['population', 'soc', 'frl', 'iss', 'oss', 'rtl', 
+        return ['population', 'soc', 'frl', 'ell', 'sped',
+        'iss', 'oss', 'rtl', 
         'one_offense', 'racial_disparity_impact', 
         'district_inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
@@ -335,7 +340,8 @@ class BaseDatum(BasePage):
 
     @classmethod
     def normalized_data_columns(cls):
-        return ['soc', 'frl', 'iss', 'oss', 'rtl', 
+        return ['soc', 'frl', 'ell', 'sped',
+         'iss', 'oss', 'rtl', 
         'one_offense', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
