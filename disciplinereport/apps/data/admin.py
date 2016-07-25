@@ -154,13 +154,32 @@ class SchoolDistrictDatumInline(admin.TabularInline):
     extra = 0
     fields = ['school_year', 'population', 'soc', 'frl', 'ell', 'sped', 'iss', 
         'oss', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
-        'racial_disparity_impact', 'district_inequality_contribution',
+        'racial_disparity_impact', 'inequality_contribution',
         'student_turnover', 'poor_attendance', 'proficient_math', 
         'proficient_reading', 'proficient_writing' ]
 
 
 
 class SchoolDistrictAdmin(ImportExportModelAdmin, BaseEntityAdmin):
+
+
+    autocomplete_lookup_fields = BaseEntityAdmin.autocomplete_lookup_fields
+    
+    fk_fields_list = list(autocomplete_lookup_fields['fk'])
+    fk_fields_list.insert(0, 'state_obj')
+    fk_fields_list.insert(0, 'state_region')
+    fk_fields_list.insert(0, 'county')
+    autocomplete_lookup_fields['fk'] = tuple(fk_fields_list)
+
+    raw_id_fields = BaseEntityAdmin.raw_id_fields
+    raw_id_fields_list = list(raw_id_fields)
+    raw_id_fields_list.insert(0, 'state_obj')
+    raw_id_fields_list.insert(0, 'state_region')
+    raw_id_fields_list.insert(0, 'county')
+    raw_id_fields = tuple(raw_id_fields_list)
+
+
+
     core_fields = (
         ('edit_parent','parent'),
         ('title','slug'),

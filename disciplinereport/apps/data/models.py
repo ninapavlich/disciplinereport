@@ -228,12 +228,12 @@ class BaseDatum(BasePage):
         'sped':"Percentage students receiving Special Education services.",
         'iss': "In School Suspension rates per 100 students.",
         'oss': "Out of School Suspension rates per 100 students.",
-        'expulsions':"",
+        'expulsions':"Expulsions per 100 students.",
         'rtl': "Referrals to law enforcement rates per 100 students.",
         'one_offense': "Percentage of students with at least one offense.",
-        'school_arrests':"",
+        'school_arrests':"School related arrests per 100 students.",
         'racial_disparity_impact': "",
-        'district_inequality_contribution':"",
+        'inequality_contribution':"",
         'student_turnover': "",
         'poor_attendance': "",
         'proficient_math': "Percentage students proficient or better in Math",
@@ -272,8 +272,8 @@ class BaseDatum(BasePage):
         help_text=help['school_arrests'],)
     racial_disparity_impact = models.FloatField(_('Racial Disparity Impact'), 
         blank=True, null=True, help_text=help['racial_disparity_impact'],)
-    district_inequality_contribution = models.FloatField(_('District Inequality Contribution'), 
-        blank=True, null=True, help_text=help['district_inequality_contribution'],)
+    inequality_contribution = models.FloatField(_('District Inequality Contribution'), 
+        blank=True, null=True, help_text=help['inequality_contribution'],)
 
     #STUDENT PUSHOUT
     student_turnover = models.FloatField(_('Student Turnover'), 
@@ -325,7 +325,7 @@ class BaseDatum(BasePage):
         return ['entity', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped',
         'iss', 'oss', 'rtl', 
         'one_offense', 'racial_disparity_impact', 
-        'district_inequality_contribution', 'student_turnover',
+        'inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
 
@@ -334,7 +334,7 @@ class BaseDatum(BasePage):
         return ['population', 'soc', 'frl', 'ell', 'sped',
         'iss', 'oss', 'rtl', 
         'one_offense', 'racial_disparity_impact', 
-        'district_inequality_contribution', 'student_turnover',
+        'inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
 
@@ -386,7 +386,7 @@ class SchoolDatum(BaseDatum):
 
     help = {
         
-        'district_inequality_contribution': "",
+        'inequality_contribution': "",
         'spf_growth_points': ""
     }
     
@@ -402,7 +402,7 @@ class SchoolDatum(BaseDatum):
     def columns(cls):
         return ['school_year', 'population', 'soc', 'frl', 'iss', 'oss', 'rtl', 
         'one_offense', 'ratial_disparity_impact', 
-        'district_inequality_contribution', 'student_turnover',
+        'inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing', 'spf_growth_points']
 
