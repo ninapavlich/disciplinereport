@@ -35,6 +35,23 @@ class DistrictListView(BaseListView):
     model = Page
     list_model = SchoolDistrict
 
+    def get_children(self):
+        children = self.list_model.objects.all().select_related('state_obj').select_related('state_region').select_related('county')
+
+
+        print self.request
+        regions = self.request.GET.getlist('regions[]', None)
+        print regions
+        if regions:
+            children = [child for child in children if child.state_region.slug in regions]
+
+
+        print 'after %s children'%(len(children))
+
+        return [child for child in children if child.is_published()]
+
+    
+
 
 class DistrictDetailView(BasePageDetail):
     

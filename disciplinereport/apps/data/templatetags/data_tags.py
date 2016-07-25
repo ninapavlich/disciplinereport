@@ -45,7 +45,4 @@ def is_checked(context, column_name, attribute):
     request = context['request']
     checkbox_value = request.GET.getlist(column_name, None)
     is_checked = attribute in checkbox_value
-
-    print 'is: %s checked? %s'%(attribute, is_checked)
-
     return is_checked
