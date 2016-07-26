@@ -106,3 +106,7 @@ Dump the a configuration file fixture:
 Dump a database fixture:
 
     python manage.py loaddata disciplinereport/fixtures/core.json
+
+Dump a data file fixture:
+
+    python manage.py dumpdata data.schooldistrict data.schooldistrictdatum --natural-foreign --indent=4 > disciplinereport/fixtures/data.json

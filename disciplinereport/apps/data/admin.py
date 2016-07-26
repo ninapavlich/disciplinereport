@@ -146,7 +146,12 @@ class SchoolDistrictDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     pass
 
 class StateDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    pass
+    fields = ['state', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped', 'iss', 
+        'oss', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
+        'racial_disparity_impact', 'inequality_contribution',
+        'student_turnover', 'poor_attendance', 'proficient_math', 
+        'proficient_reading', 'proficient_writing' ]
+
 
 class SchoolTypeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     pass

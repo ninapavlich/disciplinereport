@@ -38,8 +38,6 @@ class DistrictListView(BaseListView):
     def get_children(self):
         children = self.list_model.objects.all().select_related('state_obj').select_related('state_region').select_related('county')
 
-
-        print self.request
         regions = self.request.GET.getlist('regions[]', None)
         print regions
         if regions:
@@ -90,15 +88,18 @@ def format_data(response, objects):
 
     writer = csv.writer(response)
 
+    ctr = 0
     for object in objects:
-        ctr = 0
         for row in object.data:
+            
             row_values = row.column_values
             if ctr == 0:
                 header_columns = []
                 for column in row_values:
                     header_columns.append(column['title'])
+
                 writer.writerow(header_columns)
+            
             ctr = ctr+1
 
             data_columns = []
