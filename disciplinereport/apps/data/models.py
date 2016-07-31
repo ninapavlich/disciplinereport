@@ -134,9 +134,9 @@ class SchoolDistrict(BaseEntity):
         if difference == 0:
             message = "%s stayed the same from %s to %s at %s"%(attribute_name_formatted, previous_data.school_year, current_data.school_year, current_data.format_field(attribute_name, getattr(current_data, attribute_name)))
         elif difference > 0:
-            message = "%s increased to %s in %s from %s in %s"%(attribute_name_formatted, current_data.format_field(attribute_name, getattr(current_data, attribute_name)), current_data.school_year, getattr(previous_data, attribute_name), previous_data.school_year)
+            message = "%s increased to %s in %s from %s in %s"%(attribute_name_formatted, current_data.format_field(attribute_name, getattr(current_data, attribute_name)), current_data.school_year, previous_data.format_field(attribute_name, getattr(previous_data, attribute_name)), previous_data.school_year)
         else:
-            message = "%s decreased to %s in %s from %s in %s"%(attribute_name_formatted, current_data.format_field(attribute_name, getattr(current_data, attribute_name)), current_data.school_year, getattr(previous_data, attribute_name), previous_data.school_year)
+            message = "%s decreased to %s in %s from %s in %s"%(attribute_name_formatted, current_data.format_field(attribute_name, getattr(current_data, attribute_name)), current_data.school_year, previous_data.format_field(attribute_name, getattr(previous_data, attribute_name)), previous_data.school_year)
         return {
             'difference':difference,
             'current_data':current_data,
@@ -343,7 +343,7 @@ class BaseDatum(BasePage):
         else:
             formatted = value
 
-        print "Format %s - %s --> %s"%(field, value, formatted)
+        # print "Format %s - %s --> %s"%(field, value, formatted)
 
         return formatted
 
