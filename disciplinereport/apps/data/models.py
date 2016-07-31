@@ -103,7 +103,7 @@ class SchoolDistrict(BaseEntity):
         
 
         if current_data and not previous_data:
-            message = "%s was %s in %s"%(attribute_name_formatted, getattr(current_data, attribute_name), current_data.school_year)
+            message = "%s was %s in %s"%(attribute_name_formatted, current_data.format_field(attribute_name, getattr(current_data, attribute_name)), current_data.school_year)
 
             return {
                 'difference':0,
@@ -115,7 +115,7 @@ class SchoolDistrict(BaseEntity):
             }
 
         if previous_data and not current_data:
-            message = "%s was %s in %s"%(attribute_name_formatted, getattr(previous_data, attribute_name), previous_data.school_year)
+            message = "%s was %s in %s"%(attribute_name_formatted, previous_data.format_field(attribute_name, getattr(previous_data, attribute_name)), previous_data.school_year)
 
             return {
                 'difference':0,
