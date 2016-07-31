@@ -126,7 +126,10 @@ class SchoolDistrict(BaseEntity):
                 'verbose':message
             }
 
-        difference = getattr(current_data, attribute_name) - getattr(previous_data, attribute_name)
+        try:
+            difference = getattr(current_data, attribute_name) - getattr(previous_data, attribute_name)
+        except:
+            difference = 0
 
         if difference == 0:
             message = "%s stayed the same from %s to %s at %s"%(attribute_name_formatted, previous_data.school_year, current_data.school_year, getattr(current_data, attribute_name))
@@ -272,7 +275,7 @@ class BaseDatum(BasePage):
         help_text=help['school_arrests'],)
     racial_disparity_impact = models.FloatField(_('Racial Disparity Impact'), 
         blank=True, null=True, help_text=help['racial_disparity_impact'],)
-    inequality_contribution = models.FloatField(_('District Inequality Contribution'), 
+    inequality_contribution = models.FloatField(_('Inequality Contribution'), 
         blank=True, null=True, help_text=help['inequality_contribution'],)
 
     #STUDENT PUSHOUT
@@ -413,6 +416,24 @@ class SchoolDatum(BaseDatum):
 
 class SchoolDistrictDatum(BaseDatum):
     school_district = models.ForeignKey('SchoolDistrict')
+
+
+    @classmethod
+    def columns(cls):
+        return ['entity', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped',
+        'oss', 'expulsions', 
+        'racial_disparity_impact', 'inequality_contribution']
+
+    @classmethod
+    def data_columns(cls):
+        return ['population', 'soc', 'frl','ell', 'sped',
+        'oss', 'expulsions', 
+        'racial_disparity_impact', 'inequality_contribution']
+
+    @classmethod
+    def normalized_data_columns(cls):
+        return ['soc', 'frl','ell', 'sped',
+        'oss', 'expulsions']
 
     @property
     def entity(self):
