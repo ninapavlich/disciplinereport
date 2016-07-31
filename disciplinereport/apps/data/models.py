@@ -132,11 +132,11 @@ class SchoolDistrict(BaseEntity):
             difference = 0
 
         if difference == 0:
-            message = "%s stayed the same from %s to %s at %s"%(attribute_name_formatted, previous_data.school_year, current_data.school_year, getattr(current_data, attribute_name))
+            message = "%s stayed the same from %s to %s at %s"%(attribute_name_formatted, previous_data.school_year, current_data.school_year, current_data.format_field(attribute_name, getattr(current_data, attribute_name)))
         elif difference > 0:
-            message = "%s increased to %s in %s from %s in %s"%(attribute_name_formatted, getattr(current_data, attribute_name), current_data.school_year, getattr(previous_data, attribute_name), previous_data.school_year)
+            message = "%s increased to %s in %s from %s in %s"%(attribute_name_formatted, current_data.format_field(attribute_name, getattr(current_data, attribute_name)), current_data.school_year, getattr(previous_data, attribute_name), previous_data.school_year)
         else:
-            message = "%s decreased to %s in %s from %s in %s"%(attribute_name_formatted, getattr(current_data, attribute_name), current_data.school_year, getattr(previous_data, attribute_name), previous_data.school_year)
+            message = "%s decreased to %s in %s from %s in %s"%(attribute_name_formatted, current_data.format_field(attribute_name, getattr(current_data, attribute_name)), current_data.school_year, getattr(previous_data, attribute_name), previous_data.school_year)
         return {
             'difference':difference,
             'current_data':current_data,
@@ -328,6 +328,25 @@ class BaseDatum(BasePage):
         return columns
 
 
+
+    def format_field(self, field, value):
+        percentages = ['soc', 'frl', 'ell', 'sped',
+         'one_offense', 'student_turnover',
+        'poor_attendance', 'proficient_math', 'proficient_reading',
+        'proficient_writing']
+        per_100 = ['iss', 'oss', 'rtl',  'expulsions' ]
+        
+        if field in percentages:
+            formatted = str(value)+'%'
+        elif field in per_100:
+            formatted = '%s per 100 students'%(value)
+        else:
+            formatted = value
+
+        print "Format %s - %s --> %s"%(field, value, formatted)
+
+        return formatted
+
     @classmethod
     def columns(cls):
         return ['entity', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped',
@@ -353,6 +372,10 @@ class BaseDatum(BasePage):
         'one_offense', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
+
+    
+
+
 
     @classmethod
     def columns_formatted(cls):
