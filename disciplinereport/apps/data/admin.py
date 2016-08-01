@@ -174,14 +174,14 @@ class SchoolDistrictAdmin(ImportExportModelAdmin, BaseEntityAdmin):
     autocomplete_lookup_fields = BaseEntityAdmin.autocomplete_lookup_fields
     
     fk_fields_list = list(autocomplete_lookup_fields['fk'])
-    fk_fields_list.insert(0, 'state_obj')
+    # fk_fields_list.insert(0, 'state_obj')
     fk_fields_list.insert(0, 'state_region')
     fk_fields_list.insert(0, 'county')
     autocomplete_lookup_fields['fk'] = tuple(fk_fields_list)
 
     raw_id_fields = BaseEntityAdmin.raw_id_fields
     raw_id_fields_list = list(raw_id_fields)
-    raw_id_fields_list.insert(0, 'state_obj')
+    # raw_id_fields_list.insert(0, 'state_obj')
     raw_id_fields_list.insert(0, 'state_region')
     raw_id_fields_list.insert(0, 'county')
     raw_id_fields = tuple(raw_id_fields_list)
@@ -192,12 +192,12 @@ class SchoolDistrictAdmin(ImportExportModelAdmin, BaseEntityAdmin):
         ('edit_parent','parent'),
         ('title','slug'),
         ('publication_status'),
-        ('state_obj', 'state_region'),
+        ( 'state_region'),#'state_obj',
         ('county','district_code'),
-        ('email','website',),
+        ('website',),#'email',
         'phone_number',
         ('street_1','street_2'),
-        ('city','state',),
+        ('city',),#'state',
         'zipcode',
         ('latitude','longitude')
     )
