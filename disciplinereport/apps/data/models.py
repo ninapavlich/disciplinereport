@@ -89,9 +89,9 @@ class SchoolType(BaseEntity):
 
 class SchoolDistrict(BaseEntity):
 
-    state_obj = models.ForeignKey('State')
-    state_region = models.ForeignKey('StateRegion')
-    county = models.ForeignKey('County')
+    state_obj = models.ForeignKey('State', blank=True, null=True)
+    state_region = models.ForeignKey('StateRegion', blank=True, null=True)
+    county = models.ForeignKey('County', blank=True, null=True)
     district_code = models.CharField(_("District Code"), max_length=255, blank=True, null=True)
 
     
