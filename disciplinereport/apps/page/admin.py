@@ -120,6 +120,9 @@ class DisciplineReportPageAdmin(VersionAdmin, HierarchicalContentAdmin):
     )
 
 
+class PageAdminInline(TabularInlineOrderable):
+    model = Page
+    fields = ['order', 'title',]
 
 class PageSlideAdmin(BaseSlideInlineAdmin, TabularInlineOrderable):
     model = PageSlide
@@ -128,7 +131,7 @@ class PageContentBlockInline(BasePageContentBlockInline):
     model = PageContentBlock   
 
 class PageAdmin(DisciplineReportPageAdmin, UnsavedChangesAdmin):
-    inlines = [PageContentBlockInline, PageSlideAdmin]
+    inlines = [PageContentBlockInline, PageSlideAdmin, PageAdminInline]
 
     def edit_form(self, obj):
         if obj.form:
