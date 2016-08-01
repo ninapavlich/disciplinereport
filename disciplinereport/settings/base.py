@@ -566,7 +566,8 @@ FULL_CKEDITOR = {
     'filebrowserWindowWidth': 940,
     'filebrowserWindowHeight': 725,
     'filebrowserImageBrowseUrl': '/admin/media/imagepicker/',
-    'forcePasteAsPlainText' : 'true'
+    'forcePasteAsPlainText' : 'true',
+    'contentsCss': 'https://disciplinereport-dev.s3.amazonaws.com/media/csspackage/discipline-report-core.css'
 }
 SMALL_CKEDITOR = {
     'skin': 'moono',
@@ -589,7 +590,8 @@ SMALL_CKEDITOR = {
     'filebrowserWindowWidth': 940,
     'filebrowserWindowHeight': 725,
     'filebrowserImageBrowseUrl': '/admin/media/imagepicker/',
-    'forcePasteAsPlainText' : 'true'
+    'forcePasteAsPlainText' : 'true',
+    'contentsCss': 'https://disciplinereport-dev.s3.amazonaws.com/media/csspackage/discipline-report-core.css'
 }
 FULL_CKEDITOR_SHORT = copy.deepcopy(FULL_CKEDITOR)
 FULL_CKEDITOR_SHORT['height'] = 250;
