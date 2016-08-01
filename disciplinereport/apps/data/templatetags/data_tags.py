@@ -26,6 +26,14 @@ def get_school_types():
     return SchoolType.objects.all()
 
 @register.assignment_tag()
+def get_school_districts():
+    return SchoolDistrict.objects.all()
+
+@register.assignment_tag()
+def get_schools():
+    return School.objects.all()
+
+@register.assignment_tag()
 def get_value_difference(object, attribute):
     return object.get_value_difference(attribute)
 
