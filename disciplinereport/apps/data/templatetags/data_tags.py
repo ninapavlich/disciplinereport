@@ -15,23 +15,23 @@ register = Library()
 
 @register.assignment_tag()
 def get_city_regions():
-    return CityRegion.objects.all()
+    return CityRegion.objects.all().order_by('title')
 
 @register.assignment_tag()
 def get_state_regions():
-    return StateRegion.objects.all()
+    return StateRegion.objects.all().order_by('title')
 
 @register.assignment_tag()
 def get_school_types():
-    return SchoolType.objects.all()
+    return SchoolType.objects.all().order_by('title')
 
 @register.assignment_tag()
 def get_school_districts():
-    return SchoolDistrict.objects.all()
+    return SchoolDistrict.objects.all().order_by('title')
 
 @register.assignment_tag()
 def get_schools():
-    return School.objects.all()
+    return School.objects.all().order_by('title')
 
 @register.assignment_tag()
 def get_value_difference(object, attribute):
