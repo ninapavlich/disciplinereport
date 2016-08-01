@@ -61,6 +61,7 @@ class BaseEntity(BasePage, StreetAddressAtom):
 
     class Meta:
         abstract = True
+        ordering = ['title']
 
 class Tooltip(BaseTagMolecule):
     @cached_property
