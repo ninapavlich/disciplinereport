@@ -35,16 +35,35 @@ class DistrictListView(BaseListView):
     model = Page
     list_model = SchoolDistrict
 
+    def get_filter_title(self):
+        region_slugs = self.request.GET.getlist('regions[]', None)
+        
+        
+        initial_label =  "Showing 1 school district" if len(self.children) == 1 else "Showing %s school districts"%(len(self.children)) 
+        
+        if region_slugs:
+            regions = StateRegion.objects.filter(slug__in=region_slugs)
+            region_label = " in the "+(", ".join([region.title for region in regions]))
+        else:
+            region_label = ' in all regions'
+
+
+        label = initial_label+region_label
+        return label
+        
+
+    def get_context_data(self, **kwargs):
+        context = super(DistrictListView, self).get_context_data(**kwargs)
+        context['filter_title'] = self.get_filter_title()
+        return context
+
+
     def get_children(self):
         children = self.list_model.objects.all().select_related('state_obj').select_related('state_region').select_related('county')
 
         regions = self.request.GET.getlist('regions[]', None)
-        print regions
         if regions:
             children = [child for child in children if child.state_region.slug in regions]
-
-
-        print 'after %s children'%(len(children))
 
         return [child for child in children if child.is_published()]
 

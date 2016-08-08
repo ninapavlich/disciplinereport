@@ -54,7 +54,7 @@ class BaseEntity(BasePage, StreetAddressAtom):
 
     def get_google_map_image_url(self):
         color = '941825'
-        return 'https://api.mapbox.com/v4/mapbox.streets/pin-m-marker+%s(%s,%s)/%s,%s,10/400x250@2x.png?access_token=%s'%(color, self.longitude, self.latitude, self.longitude, self.latitude, settings.MAPBOX_ACCESS_TOKEN)
+        return 'https://api.mapbox.com/v4/mapbox.streets/pin-m-marker+%s(%s,%s)/%s,%s,6/400x250@2x.png?access_token=%s'%(color, self.longitude, self.latitude, self.longitude, self.latitude, settings.MAPBOX_ACCESS_TOKEN)
 #         return u'https://maps.googleapis.com/maps/api/staticmap?center=%s,%s&zo\
 # om=10&scale=false&size=400x250&maptype=roadmap&format=png&visual_refresh=\
 # true&markers=color:0x85200c|label:|%s,%s'%(self.latitude, self.longitude, self.latitude, self.longitude)
@@ -79,7 +79,14 @@ class State(BaseEntity):
     pass
 
 class StateRegion(BaseEntity):
-    pass
+    
+    @cached_property
+    def school_districts(self):
+        return SchoolDistrict.objects.filter(state_region=self)
+
+    @cached_property
+    def hierarchical_children(self):
+        return []
 
 class County(BaseEntity):
     pass

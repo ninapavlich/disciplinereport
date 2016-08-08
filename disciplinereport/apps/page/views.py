@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.utils.decorators import method_decorator
 
 from carbon.compounds.form.views import CreateFormEntryMixin
-from carbon.compounds.page.views import PageDetail as BasePageDetail
+from carbon.compounds.page.views import SiblingPageDetail as BasePageDetail
 from carbon.compounds.page.views import PageTagView as BasePageTagView
 from carbon.compounds.page.views import PageBlockView as BasePageBlockView
 
@@ -35,6 +35,14 @@ class PageDetail(BasePageBlockView, CreateFormEntryMixin, BasePageDetail):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+    # def get_next_previous(self, siblings):
+    #     next = self.object.get_next_sibling(siblings)
+    #     previous = self.object.get_previous_sibling(siblings) 
+
+    #     if not previous:
+    #         previous = self.object.parent
+    #     return (next, previous)
 
 
 @receiver(signal_form_error, sender=Form)
