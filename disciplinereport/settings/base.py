@@ -81,7 +81,7 @@ DEBUG = env.get("DEBUG", True)
 TEMPLATE_DEBUG = DEBUG
 HTML_MINIFY = DEBUG==False
 
-SITE_TITLE = 'Discipline Report'
+SITE_TITLE = 'Colorado Discipline Report'
 SITE_DESCRIPTION = 'Website'
 GRAPPELLI_ADMIN_TITLE = SITE_TITLE
 GRAPPELLI_INDEX_DASHBOARD = 'disciplinereport.apps.core.dashboard.AdminDashboard'
