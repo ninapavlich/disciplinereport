@@ -96,17 +96,18 @@ To commit changes and push them to bitbucket:
 
 Dump a database fixture:
 
-	python manage.py dumpdata --natural-foreign --indent=4 -e sessions -e admin -e contenttypes -e auth.Permission > disciplinereport/fixtures/core.json
-    
+	python manage.py dumpdata --natural-foreign --indent=4 -e sessions -e admin -e contenttypes -e auth.Permission > disciplinereport/fixtures/backup.json
 
+    
 Dump the a configuration file fixture:
 
 	python manage.py dumpdata core form -e form.formentry -e form.fieldentry -e core.menuitem --natural-foreign --indent=4 > disciplinereport/fixtures/configuration.json
 
-Dump a database fixture:
+Load a database fixture:
 
-    python manage.py loaddata disciplinereport/fixtures/core.json
+    python manage.py loaddata disciplinereport/fixtures/backup.json
 
 Dump a data file fixture:
 
     python manage.py dumpdata data.schooldistrict data.schooldistrictdatum --natural-foreign --indent=4 > disciplinereport/fixtures/data.json
+
