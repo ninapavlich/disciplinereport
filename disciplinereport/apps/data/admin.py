@@ -160,9 +160,10 @@ class SchoolTypeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 class SchoolDistrictDatumInline(admin.TabularInline):
     model = SchoolDistrictDatum
     extra = 0
-    fields = ['school_year', 'population', 'soc', 'frl', 'ell', 'sped', 'iss', 
-        'oss', 'oss_soc', 'oss_white', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
-        'student_turnover', 'poor_attendance', 'proficient_math', 
+    fields = [
+        'school_year', 'population', 'soc', 'frl', 'ell', 'sped', 
+        'oss', 'rtl', 'school_arrests', 'oss_soc', 'oss_white', 'expulsions',  'one_offense', 
+        'iss', 'student_turnover', 'poor_attendance', 'proficient_math', 
         'proficient_reading', 'proficient_writing' ]
 
 
