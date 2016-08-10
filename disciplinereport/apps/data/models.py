@@ -1,3 +1,4 @@
+import locale
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.conf import settings
@@ -363,7 +364,8 @@ class BaseDatum(BasePage):
         elif field in per_100:
             formatted = '%s per 100 students'%(value)
         else:
-            formatted = value
+            locale.setlocale(locale.LC_ALL, 'en_US')
+            formatted = locale.format("%d", value, grouping=True)
 
         # print "Format %s - %s --> %s"%(field, value, formatted)
 
