@@ -346,7 +346,7 @@ class BaseDatum(BasePage):
          'one_offense', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
-        per_100 = ['iss', 'oss', 'rtl',  'expulsions' ]
+        per_100 = ['iss', 'oss', 'rtl',  'expulsions', 'oss_soc', 'oss_white']
         
         if field in percentages:
             formatted = str(value)+'%'
@@ -362,25 +362,23 @@ class BaseDatum(BasePage):
     @classmethod
     def columns(cls):
         return ['entity', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped',
-        'iss', 'oss', 'rtl', 
-        'one_offense', 'racial_disparity_impact', 
-        'inequality_contribution', 'student_turnover',
+        'iss', 'oss', 'oss_soc', 'oss_white', 'rtl', 
+        'one_offense', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
 
     @classmethod
     def data_columns(cls):
         return ['population', 'soc', 'frl', 'ell', 'sped',
-        'iss', 'oss', 'rtl', 
-        'one_offense', 'racial_disparity_impact', 
-        'inequality_contribution', 'student_turnover',
+        'iss', 'oss', 'oss_soc', 'oss_white', 'rtl', 
+        'one_offense', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
 
     @classmethod
     def normalized_data_columns(cls):
         return ['soc', 'frl', 'ell', 'sped',
-         'iss', 'oss', 'rtl', 
+         'iss', 'oss', 'oss_soc', 'oss_white', 'rtl', 
         'one_offense', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing']
@@ -443,7 +441,7 @@ class SchoolDatum(BaseDatum):
 
     @classmethod
     def columns(cls):
-        return ['school_year', 'population', 'soc', 'frl', 'iss', 'oss', 'rtl', 
+        return ['school_year', 'population', 'soc', 'frl', 'iss', 'oss', 'oss_soc', 'oss_white', 'rtl', 
         'one_offense', 'ratial_disparity_impact', 
         'inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
@@ -456,19 +454,17 @@ class SchoolDistrictDatum(BaseDatum):
     @classmethod
     def columns(cls):
         return ['entity', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped',
-        'oss', 'expulsions', 
-        'racial_disparity_impact', 'inequality_contribution']
+        'oss', 'oss_soc', 'oss_white', 'expulsions']
 
     @classmethod
     def data_columns(cls):
         return ['population', 'soc', 'frl','ell', 'sped',
-        'oss', 'expulsions', 
-        'racial_disparity_impact', 'inequality_contribution']
+        'oss', 'oss_soc', 'oss_white', 'expulsions']
 
     @classmethod
     def normalized_data_columns(cls):
         return ['soc', 'frl','ell', 'sped',
-        'oss', 'expulsions']
+        'oss', 'oss_soc', 'oss_white', 'expulsions']
 
     @property
     def entity(self):
