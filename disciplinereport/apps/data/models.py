@@ -360,12 +360,12 @@ class BaseDatum(BasePage):
             return None
 
         if field in percentages:
-            formatted = str(value)+'%'
+            formatted = str(round(value,1))+'%'
         elif field in per_100:
-            formatted = '%s per 100 students'%(value)
+            formatted = '%s per 100 students'%(round(value,1))
         else:
             locale.setlocale(locale.LC_ALL, 'en_US.utf8')
-            formatted = locale.format("%d", value, grouping=True)
+            formatted = locale.format("%d", round(value,1), grouping=True)
 
         # print "Format %s - %s --> %s"%(field, value, formatted)
 
