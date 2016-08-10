@@ -62,8 +62,16 @@ class DistrictListView(BaseListView):
         children = self.list_model.objects.all().select_related('state_obj').select_related('state_region').select_related('county')
 
         regions = self.request.GET.getlist('regions[]', None)
+        print 'REGIONS! %s'%(regions)
+        
+        for child in children:
+            print 'child region %s in %s? %s'%(child.state_region_slug, regions, child.state_region_slug in regions)
+
         if regions:
-            children = [child for child in children if child.state_region.slug in regions]
+            children = [child for child in children if child.state_region_slug in regions]
+
+
+        print 'children %s'%(len(children))
 
         return [child for child in children if child.is_published()]
 

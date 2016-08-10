@@ -162,6 +162,12 @@ class SchoolDistrict(BaseEntity):
         return SchoolDistrictDatum.objects.filter(school_district=self).select_related('school_year').select_related('school_district')
 
     @cached_property
+    def state_region_slug(self):
+        if self.state_region:
+            return self.state_region.slug
+        return None
+
+    @cached_property
     def latest_data(self):
         return SchoolDistrictDatum.objects.filter(school_district=self).select_related('school_year').select_related('school_district').first()
 
@@ -321,7 +327,7 @@ class BaseDatum(BasePage):
 
     def generate_title(self):
         title = '%s %s'%(self.__class__.__name__, self.school_year)
-        print 'generate %s'%(title)
+        # print 'generate %s'%(title)
         return title
 
     @cached_property
@@ -364,7 +370,10 @@ class BaseDatum(BasePage):
         elif field in per_100:
             formatted = '%s per 100 students'%(round(value,1))
         else:
-            locale.setlocale(locale.LC_ALL, 'en_US.utf8')
+            try:
+                locale.setlocale(locale.LC_ALL, 'en_US.utf8')
+            except:
+                locale.setlocale(locale.LC_ALL, 'en_US')
             formatted = locale.format("%d", round(value,1), grouping=True)
 
         # print "Format %s - %s --> %s"%(field, value, formatted)

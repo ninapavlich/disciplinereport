@@ -66,7 +66,7 @@ def get_state_data(school_district_datum):
 def is_checked(context, column_name, attribute):
     request = context['request']
     checkbox_value = request.GET.getlist(column_name, None)
-    print checkbox_value
+    # print checkbox_value
     if not checkbox_value:
         return True
     is_checked = attribute in checkbox_value
