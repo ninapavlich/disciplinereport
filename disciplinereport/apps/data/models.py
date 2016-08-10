@@ -355,6 +355,9 @@ class BaseDatum(BasePage):
         'proficient_writing']
         per_100 = ['iss', 'oss', 'rtl',  'expulsions', 'oss_soc', 'oss_white']
         
+        if not value:
+            return None
+
         if field in percentages:
             formatted = str(value)+'%'
         elif field in per_100:
