@@ -14,7 +14,7 @@ django-ace==1.0.2
 django-ace-overlay==0.5
 django-appconf==1.0.1
 django-batch-uploader==0.12.1
--e git+https://github.com/ninapavlich/django-carbon.git@c5098b28530a4d954e088448cb5ff66259046d81#egg=django_carbon-dev
+-e git+https://github.com/ninapavlich/django-carbon.git@d0e01c972f4241bac746dea026a330399eb8ca0b#egg=django_carbon-dev
 django-ckeditor==5.0.2
 django-ckeditor-improved==1.2.3
 django-debug-toolbar==1.4

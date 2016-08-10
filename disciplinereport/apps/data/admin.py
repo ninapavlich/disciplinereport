@@ -231,6 +231,10 @@ class SchoolDistrictAdmin(ImportExportModelAdmin, BaseEntityAdmin):
 
     inlines = [SchoolDistrictDatumInline]
 
+    list_display = ['title', 'website', 'latitude', 'longitude', 'state_obj']
+    list_display_links = ['title']
+    list_editable = ['state_obj']
+
 class SchoolAdmin(BaseEntityAdmin):
     core_fields = (
         ('edit_parent','parent'),
