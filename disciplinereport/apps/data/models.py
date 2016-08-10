@@ -314,7 +314,8 @@ class BaseDatum(BasePage):
     @property
     def oss_soc_to_oss_white(self):
         if self.oss_soc and self.oss_white:
-            return self.oss_soc / self.oss_white
+            return ("%.2f" % round(self.oss_soc / self.oss_white,2))
+            
         return ''
 
     def generate_title(self):
