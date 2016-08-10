@@ -311,6 +311,12 @@ class BaseDatum(BasePage):
     def entity(self):
         return None
 
+    @property
+    def oss_soc_to_oss_white(self):
+        if self.oss_soc and self.oss_white:
+            return self.oss_soc / self.oss_white
+        return ''
+
     def generate_title(self):
         title = '%s %s'%(self.__class__.__name__, self.school_year)
         print 'generate %s'%(title)
