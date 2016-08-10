@@ -35,10 +35,14 @@ def get_schools():
 
 @register.assignment_tag()
 def get_value_difference(object, attribute):
+    if not object:
+        return None
     return object.get_value_difference(attribute)
 
 @register.assignment_tag()
 def get_value_formatted(data, attribute_name):
+    if not data:
+        return None
     return data.format_field(attribute_name, getattr(data, attribute_name))
 
 
