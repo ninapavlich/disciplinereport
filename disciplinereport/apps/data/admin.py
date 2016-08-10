@@ -162,7 +162,7 @@ class SchoolDistrictDatumInline(admin.TabularInline):
     extra = 0
     fields = [
         'school_year', 'population', 'soc', 'frl', 'ell', 'sped', 
-        'oss', 'rtl', 'school_arrests', 'oss_soc', 'oss_white', 'expulsions',  'one_offense', 
+        'oss', 'expulsions', 'rtl', 'school_arrests', 'oss_soc', 'oss_white',  'one_offense', 
         'iss', 'student_turnover', 'poor_attendance', 'proficient_math', 
         'proficient_reading', 'proficient_writing' ]
 
