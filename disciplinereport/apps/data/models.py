@@ -364,7 +364,7 @@ class BaseDatum(BasePage):
         elif field in per_100:
             formatted = '%s per 100 students'%(value)
         else:
-            locale.setlocale(locale.LC_ALL, 'en_US')
+            locale.setlocale(locale.LC_ALL, 'en_US.utf8')
             formatted = locale.format("%d", value, grouping=True)
 
         # print "Format %s - %s --> %s"%(field, value, formatted)
