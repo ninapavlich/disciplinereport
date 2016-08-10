@@ -147,7 +147,7 @@ class SchoolDistrictDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 class StateDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     fields = ['state', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped', 'iss', 
-        'oss', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
+        'oss', 'oss_soc', 'oss_white', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
         'racial_disparity_impact', 'inequality_contribution',
         'student_turnover', 'poor_attendance', 'proficient_math', 
         'proficient_reading', 'proficient_writing' ]
@@ -161,7 +161,7 @@ class SchoolDistrictDatumInline(admin.TabularInline):
     model = SchoolDistrictDatum
     extra = 0
     fields = ['school_year', 'population', 'soc', 'frl', 'ell', 'sped', 'iss', 
-        'oss', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
+        'oss', 'oss_soc', 'oss_white', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
         'racial_disparity_impact', 'inequality_contribution',
         'student_turnover', 'poor_attendance', 'proficient_math', 
         'proficient_reading', 'proficient_writing' ]

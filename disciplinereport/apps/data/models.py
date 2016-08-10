@@ -273,6 +273,10 @@ class BaseDatum(BasePage):
         help_text=help['iss'],)
     oss = models.FloatField(_('Out-of-school Suspensions'), blank=True, null=True,
         help_text=help['oss'],)
+    oss_soc = models.FloatField(_('Out-of-school Suspensions per 100 Students of Color'), blank=True, null=True,
+        help_text=help['oss'],)
+    oss_white = models.FloatField(_('Out-of-school Suspensions per 100 White Students'), blank=True, null=True,
+        help_text=help['oss'],)
     expulsions = models.FloatField(_('Expulsions'), blank=True, null=True,
         help_text=help['expulsions'],)
     rtl = models.FloatField(_('Referrals to Law Enforcement'), blank=True, null=True,

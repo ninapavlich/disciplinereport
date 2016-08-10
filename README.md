@@ -111,3 +111,7 @@ Dump a data file fixture:
 
     python manage.py dumpdata data.schooldistrict data.schooldistrictdatum --natural-foreign --indent=4 > disciplinereport/fixtures/data.json
 
+
+
+
+python manage.py dumpdata --natural-foreign --indent=4 core.template core.jsresource core.jspackage > disciplinereport/fixtures/core_pieces.json
