@@ -355,6 +355,7 @@ class BaseDatum(BasePage):
 
 
 
+
     def format_field(self, field, value):
         percentages = ['soc', 'frl', 'ell', 'sped',
          'one_offense', 'student_turnover',
@@ -379,6 +380,22 @@ class BaseDatum(BasePage):
         # print "Format %s - %s --> %s"%(field, value, formatted)
 
         return formatted
+
+    class Meta:
+        abstract = True
+
+    def calculate_racial_disparity_impact(self):
+        self.racial_disparity_impact = -1;
+
+    def calculate_inequality_contribution(self):
+        self.inequality_contribution = -1;
+
+    def save(self, *args, **kwargs):
+        self.calculate_inequality_contribution()
+        self.calculate_racial_disparity_impact()
+        print self.racial_disparity_impact
+        print self.inequality_contribution
+        return super(BaseDatum, self).save(*args, **kwargs)
 
     @classmethod
     def columns(cls):
@@ -439,8 +456,7 @@ class BaseDatum(BasePage):
             field_name = column
         return field_name
 
-    class Meta:
-        abstract = True
+
 
 
 class SchoolDatum(BaseDatum):
@@ -463,7 +479,7 @@ class SchoolDatum(BaseDatum):
     @classmethod
     def columns(cls):
         return ['school_year', 'population', 'soc', 'frl', 'iss', 'oss', 'oss_soc', 'oss_white', 'rtl', 
-        'one_offense', 'ratial_disparity_impact', 
+        'one_offense', 'racial_disparity_impact', 
         'inequality_contribution', 'student_turnover',
         'poor_attendance', 'proficient_math', 'proficient_reading',
         'proficient_writing', 'spf_growth_points']
@@ -491,12 +507,18 @@ class SchoolDistrictDatum(BaseDatum):
     def entity(self):
         return self.school_district
 
+    def __unicode__(self):
+        return u"SchoolDistrictData: %s %s" % (self.school_district, self.school_year)
+
 class StateDatum(BaseDatum):
     state = models.ForeignKey('State')    
 
     @property
     def entity(self):
         return self.state
+
+    def __unicode__(self):
+        return u"StateData: %s %s" % (self.state, self.school_year)
 
 
 

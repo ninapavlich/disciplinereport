@@ -33,7 +33,10 @@ class BaseListView(NonAdminCachableView, PublishableView, AddressibleView, HasCh
 
 class DistrictListView(BaseListView):
     model = Page
-    list_model = SchoolDistrict
+    list_model = SchoolDistrictDatum
+
+    region_filters = None
+    year_filters = None
 
     def get_filter_title(self):
         region_slugs = self.request.GET.getlist('regions[]', None)
@@ -55,25 +58,32 @@ class DistrictListView(BaseListView):
     def get_context_data(self, **kwargs):
         context = super(DistrictListView, self).get_context_data(**kwargs)
         context['filter_title'] = self.get_filter_title()
+        context['year_filters'] = self.year_filters
+        context['region_filters'] = self.region_filters
+        context['school_districts'] = list(set([child.school_district for child in context['children']]))
         return context
 
 
     def get_children(self):
-        children = self.list_model.objects.all().select_related('state_obj').select_related('state_region').select_related('county')
-
-        regions = self.request.GET.getlist('regions[]', None)
-        print 'REGIONS! %s'%(regions)
+        children = self.list_model.objects.all().select_related('school_district').select_related('school_year').select_related('school_district__state_obj').select_related('school_district__state_region').select_related('school_district__county')
         
-        for child in children:
-            print 'child region %s in %s? %s'%(child.state_region_slug, regions, child.state_region_slug in regions)
-
+        # -- Apply Region filters
+        regions = self.request.GET.getlist('regions[]', None)
+        self.region_filters = regions
+        
         if regions:
-            children = [child for child in children if child.state_region_slug in regions]
+            children = [child for child in children if child.school_district.state_region_slug in regions]
 
+        # -- Apply Year filters
+        years = self.request.GET.getlist('years[]', None)
+        if not years:
+            years = [SchoolYear.objects.all().order_by('-title')[0].title]
+        self.year_filters = years
+       
+        children = [child for child in children if child.school_year.title in years]
+       
 
-        print 'children %s'%(len(children))
-
-        return [child for child in children if child.is_published()]
+        return children
 
     
 

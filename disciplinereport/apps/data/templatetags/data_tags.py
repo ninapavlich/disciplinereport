@@ -22,6 +22,10 @@ def get_state_regions():
     return StateRegion.objects.all().order_by('title')
 
 @register.assignment_tag()
+def get_school_years():
+    return SchoolYear.objects.all().order_by('title')
+
+@register.assignment_tag()
 def get_school_types():
     return SchoolType.objects.all().order_by('title')
 

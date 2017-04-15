@@ -111,7 +111,7 @@ class BaseEntityAdmin(VersionAdmin, HierarchicalContentAdmin):
     list_display_links = ['title']
     # list_editabel = ['latitude', 'longitude']
 
-class StateAdmin(BaseEntityAdmin):
+class StateAdmin(ImportExportModelAdmin, BaseEntityAdmin):
     core_fields = (
         ('edit_parent','parent'),
         ('title','slug'),
@@ -145,12 +145,16 @@ class StateAdmin(BaseEntityAdmin):
 class SchoolDistrictDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     pass
 
+    list_filter = ['school_district', 'school_year']
+
 class StateDatumAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     fields = ['state', 'school_year', 'population', 'soc', 'frl', 'ell', 'sped', 'iss', 
         'oss', 'oss_soc', 'oss_white', 'expulsions', 'rtl', 'one_offense', 'school_arrests',
         'racial_disparity_impact', 'inequality_contribution',
         'student_turnover', 'poor_attendance', 'proficient_math', 
         'proficient_reading', 'proficient_writing' ]
+
+    list_filter = ['state', 'school_year']
 
 
 class SchoolTypeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
@@ -233,7 +237,7 @@ class SchoolDistrictAdmin(ImportExportModelAdmin, BaseEntityAdmin):
 
     list_display = ['title', 'website', 'latitude', 'longitude', 'state_obj']
     list_display_links = ['title']
-    list_editable = ['state_obj']
+    
 
 class SchoolAdmin(BaseEntityAdmin):
     core_fields = (
